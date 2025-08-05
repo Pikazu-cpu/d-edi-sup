@@ -5,7 +5,7 @@ import {
   UserGroupIcon,
   CurrencyDollarIcon,
   TrendingUpIcon,
-  ArrowTrendingDownIcon,,
+  ArrowTrendingDownIcon,
 } from '@heroicons/react/24/outline'
 import AdminLayout from '../../components/Layout/AdminLayout'
 import StatsCard from '../../components/UI/StatsCard'
