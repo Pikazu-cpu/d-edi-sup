@@ -4,7 +4,7 @@ import {
   ShoppingCartIcon,
   UserGroupIcon,
   CurrencyDollarIcon,
-  TrendingUpIcon,
+  ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
 } from '@heroicons/react/24/outline'
 import AdminLayout from '../../components/Layout/AdminLayout'
