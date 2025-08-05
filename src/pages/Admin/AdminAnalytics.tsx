@@ -100,7 +100,7 @@ export default function AdminAnalytics() {
     {
       title: 'This Month Revenue',
       value: `₹${thisMonthRevenue.toLocaleString()}`,
-      icon: TrendingUpIcon,
+      icon: ArrowTrendingUpIcon,
       change: { value: `${thisMonthOrders.length} orders`, type: 'increase' as const }
     },
     {
@@ -163,7 +163,7 @@ export default function AdminAnalytics() {
                 <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                      <TrendingDownIcon className="h-4 w-4 text-red-600" />
+                      <ArrowTrendingDownIcon className="h-4 w-4 text-red-600" />
                     </div>
                     <span className="ml-3 text-sm font-medium text-gray-900">Out of Stock</span>
                   </div>
@@ -173,7 +173,7 @@ export default function AdminAnalytics() {
                 <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      <TrendingUpIcon className="h-4 w-4 text-blue-600" />
+                      <ArrowTrendingUpIcon className="h-4 w-4 text-blue-600" />
                     </div>
                     <span className="ml-3 text-sm font-medium text-gray-900">Featured Products</span>
                   </div>
