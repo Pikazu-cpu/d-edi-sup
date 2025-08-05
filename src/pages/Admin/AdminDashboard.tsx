@@ -177,9 +177,9 @@ export default function AdminDashboard() {
                       </div>
                       <div className="flex items-center">
                         {product.in_stock ? (
-                          <TrendingUpIcon className="h-4 w-4 text-green-500" />
+                          <ArrowTrendingUpIcon className="h-4 w-4 text-green-500" />
                         ) : (
-                          <TrendingDownIcon className="h-4 w-4 text-red-500" />
+                          <ArrowTrendingDownIcon className="h-4 w-4 text-red-500" />
                         )}
                         <span className={`ml-1 text-xs ${
                           product.in_stock ? 'text-green-600' : 'text-red-600'
