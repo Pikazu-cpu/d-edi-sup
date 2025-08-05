@@ -4,18 +4,23 @@ import { Toaster } from 'react-hot-toast'
 import { useAuth } from './hooks/useAuth'
 import LoadingSpinner from './components/UI/LoadingSpinner'
 
-// Auth pages
-import Login from './pages/Auth/Login'
-import Register from './pages/Auth/Register'
+// Public e-commerce pages
+import Home from './pages/Public/Home'
+import ProductDetail from './pages/Public/ProductDetail'
+import Cart from './pages/Public/Cart'
+import Checkout from './pages/Public/Checkout'
 
-// Dashboard pages
-import Dashboard from './pages/Dashboard/Dashboard'
-import ProductList from './pages/Products/ProductList'
-import OrderList from './pages/Orders/OrderList'
+// Admin pages
+import AdminLogin from './pages/Admin/AdminLogin'
+import AdminDashboard from './pages/Admin/AdminDashboard'
+import AdminProducts from './pages/Admin/AdminProducts'
+import AdminProductForm from './pages/Admin/AdminProductForm'
+import AdminOrders from './pages/Admin/AdminOrders'
+import AdminAnalytics from './pages/Admin/AdminAnalytics'
 
-// Protected Route component
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth()
+// Protected Route component for admin
+function AdminProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, profile, loading } = useAuth()
 
   if (loading) {
     return (
@@ -25,8 +30,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     )
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />
+  if (!user || profile?.role !== 'admin') {
+    return <Navigate to="/admin/login" replace />
   }
 
   return <>{children}</>
@@ -37,41 +42,70 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* Public e-commerce routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           
-          {/* Protected routes */}
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route
-            path="/dashboard"
+            path="/admin"
             element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
+              <AdminProtectedRoute>
+                <AdminDashboard />
+              </AdminProtectedRoute>
             }
           />
           <Route
-            path="/products"
+            path="/admin/products"
             element={
-              <ProtectedRoute>
-                <ProductList />
-              </ProtectedRoute>
+              <AdminProtectedRoute>
+                <AdminProducts />
+              </AdminProtectedRoute>
             }
           />
           <Route
-            path="/orders"
+            path="/admin/products/new"
             element={
-              <ProtectedRoute>
-                <OrderList />
-              </ProtectedRoute>
+              <AdminProtectedRoute>
+                <AdminProductForm />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products/:id/edit"
+            element={
+              <AdminProtectedRoute>
+                <AdminProductForm />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminProtectedRoute>
+                <AdminOrders />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/analytics"
+            element={
+              <AdminProtectedRoute>
+                <AdminAnalytics />
+              </AdminProtectedRoute>
             }
           />
           
-          {/* Redirect root to dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Redirect old dashboard routes to admin */}
+          <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
+          <Route path="/products" element={<Navigate to="/admin/products" replace />} />
+          <Route path="/orders" element={<Navigate to="/admin/orders" replace />} />
           
           {/* Catch all other routes */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         
         <Toaster
